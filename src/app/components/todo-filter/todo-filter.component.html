@@ -1,0 +1,34 @@
+<div class="filter-container">
+  <div class="filter-buttons">
+    <button
+      *ngFor="let filter of filters"
+      class="filter-button"
+      [class.active]="currentFilter().status === filter.key"
+      (click)="setFilter(filter.key)"
+      [attr.aria-label]="'Show ' + filter.label.toLowerCase() + ' todos'"
+    >
+      <span class="filter-icon">{{ filter.icon }}</span>
+      <span class="filter-label">{{ filter.label }}</span>
+      <span class="filter-count" *ngIf="filter.key === 'active'">
+        ({{ todoCounts().active }})
+      </span>
+      <span class="filter-count" *ngIf="filter.key === 'completed'">
+        ({{ todoCounts().completed }})
+      </span>
+      <span class="filter-count" *ngIf="filter.key === 'all'">
+        ({{ todoCounts().total }})
+      </span>
+    </button>
+  </div>
+
+  <button 
+    class="clear-completed-button"
+    (click)="clearCompleted()"
+    [disabled]="todoCounts().completed === 0"
+    [attr.aria-label]="'Clear ' + todoCounts().completed + ' completed todos'"
+    *ngIf="todoCounts().completed > 0"
+  >
+    <span class="clear-icon">🗑️</span>
+    Clear Completed ({{ todoCounts().completed }})
+  </button>
+</div>

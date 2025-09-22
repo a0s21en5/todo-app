@@ -1,0 +1,33 @@
+<div class="todo-list-container">
+  <div class="todo-stats" *ngIf="todoCounts().total > 0">
+    <span class="stats-item">
+      Total: <strong>{{ todoCounts().total }}</strong>
+    </span>
+    <span class="stats-item">
+      Active: <strong>{{ todoCounts().active }}</strong>
+    </span>
+    <span class="stats-item">
+      Completed: <strong>{{ todoCounts().completed }}</strong>
+    </span>
+  </div>
+
+  <div class="todo-list" *ngIf="filteredTodos().length > 0; else noTodos">
+    <app-todo-item 
+      *ngFor="let todo of filteredTodos(); trackBy: trackByTodoId"
+      [todo]="todo"
+    ></app-todo-item>
+  </div>
+
+  <ng-template #noTodos>
+    <div class="no-todos">
+      <div class="no-todos-icon">📝</div>
+      <h3>No todos found</h3>
+      <p *ngIf="todoCounts().total === 0">
+        Add your first todo above to get started!
+      </p>
+      <p *ngIf="todoCounts().total > 0">
+        Try changing the filter to see more todos.
+      </p>
+    </div>
+  </ng-template>
+</div>

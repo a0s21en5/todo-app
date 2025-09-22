@@ -1,0 +1,102 @@
+<form class="add-todo-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+  <!-- Error Alert -->
+  <div class="error-alert" *ngIf="submitError()" role="alert">
+    <span class="error-icon">⚠️</span>
+    <span class="error-message">{{ submitError() }}</span>
+    <button 
+      type="button" 
+      class="error-close" 
+      (click)="clearError()"
+      aria-label="Dismiss error"
+    >
+      ✕
+    </button>
+  </div>
+
+  <div class="form-row">
+    <!-- Title Input -->
+    <div class="form-group title-group">
+      <label for="todoTitle" class="sr-only">Todo title</label>
+      <input 
+        id="todoTitle"
+        type="text" 
+        formControlName="title"
+        (keypress)="onKeyPress($event)"
+        placeholder="What needs to be done?"
+        class="todo-input"
+        autocomplete="off"
+        [class.error]="getFieldError('title')"
+        [attr.aria-describedby]="getFieldError('title') ? 'title-error' : null"
+      >
+      
+      <!-- Character Counter -->
+      <div class="character-counter" [class.warning]="characterCount() > maxLength * 0.8">
+        {{ characterCount() }} / {{ maxLength }}
+      </div>
+      
+      <!-- Title Error -->
+      <div 
+        id="title-error" 
+        class="field-error" 
+        *ngIf="getFieldError('title')"
+        role="alert"
+      >
+        {{ getFieldError('title') }}
+      </div>
+    </div>
+
+    <!-- Priority Select -->
+    <div class="form-group priority-group">
+      <label for="todoPriority" class="form-label">Priority</label>
+      <select 
+        id="todoPriority"
+        formControlName="priority"
+        class="priority-select"
+      >
+        <option value="low">🟢 Low</option>
+        <option value="medium">🟡 Medium</option>
+        <option value="high">🔴 High</option>
+      </select>
+    </div>
+
+    <!-- Submit Button -->
+    <button 
+      type="submit" 
+      class="add-button"
+      [disabled]="todoForm.invalid || isSubmitting()"
+      [attr.aria-label]="isSubmitting() ? 'Adding todo...' : 'Add todo'"
+    >
+      <span *ngIf="!isSubmitting()">➕ Add</span>
+      <span *ngIf="isSubmitting()" class="loading-spinner">⏳ Adding...</span>
+    </button>
+  </div>
+
+  <!-- Optional Fields (Expandable) -->
+  <details class="optional-fields">
+    <summary>Additional Options</summary>
+    
+    <div class="form-group">
+      <label for="todoCategory" class="form-label">Category</label>
+      <input 
+        id="todoCategory"
+        type="text" 
+        formControlName="category"
+        placeholder="e.g., Work, Personal, Shopping"
+        class="category-input"
+        autocomplete="off"
+      >
+    </div>
+    
+    <div class="form-group">
+      <label for="todoDescription" class="form-label">Description</label>
+      <textarea 
+        id="todoDescription"
+        formControlName="description"
+        placeholder="Additional details about this todo..."
+        class="description-textarea"
+        rows="3"
+        autocomplete="off"
+      ></textarea>
+    </div>
+  </details>
+</form>

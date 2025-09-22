@@ -1,0 +1,19 @@
+<form class="add-todo-form" (ngSubmit)="onSubmit()">
+  <input 
+    type="text" 
+    [(ngModel)]="newTodoTitle"
+    (keypress)="onKeyPress($event)"
+    placeholder="What needs to be done?"
+    class="add-todo-input"
+    name="newTodo"
+    autocomplete="off"
+    maxlength="200"
+  >
+  <button 
+    type="submit" 
+    class="add-todo-button"
+    [disabled]="!newTodoTitle.trim()"
+  >
+    Add
+  </button>
+</form>
