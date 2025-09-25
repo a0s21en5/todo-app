@@ -2,9 +2,7 @@ services:
   # Angular Frontend Application
   todo-app:
     build:
-      image: a0s21en5/todo-app
-      dockerfile: Dockerfile
-      target: production
+      image: "a0s21en5/todo-app"
     container_name: todo-app
     labels:
       - "app.name=todo-app"
