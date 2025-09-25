@@ -1,46 +1,6 @@
 services:
-  # Angular Frontend Application
   todo-app:
     build:
       image: "a0s21en5/todo-app"
-    container_name: todo-app
-    labels:
-      - "app.name=todo-app"
-      - "app.version=1.0.0"
-      - "app.description=Angular Todo Application"
-      - "traefik.enable=false"
     ports:
       - "3000:80"
-    environment:
-      - NODE_ENV=production
-    deploy:
-      resources:
-        limits:
-          memory: 128M
-          cpus: '0.5'
-        reservations:
-          memory: 64M
-          cpus: '0.25'
-    networks:
-      - todo-network
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /var/cache/nginx:rw,noexec,nosuid,size=50m
-      - /var/run:rw,noexec,nosuid,size=50m
-      - /tmp:rw,noexec,nosuid,size=50m
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 30s
-
-networks:
-  todo-network:
-    driver: bridge
-    name: todo-network
-    ipam:
-      driver: default
