@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   todo-app:
-    build: .
+    image: a0s21en5/todo-app:latest
     ports:
       - "8080:80"
     restart: unless-stopped

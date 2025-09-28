@@ -31,7 +31,7 @@ pipeline {
                 pushToDockerHub(
                     imageName: 'my-todo-app',
                     imageTag: 'v1.0.0',
-                    repository: 'todo-app',
+                    repository: 'a0s21en5/todo-app',
                     targetTag: 'latest',
                     dockerCredentialsId: 'dockerHubCredential'
                 )
