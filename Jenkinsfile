@@ -70,10 +70,10 @@ pipeline {
             echo 'Pipeline execution completed.'
         }
         success {
-            echo 'Pipeline executed successfully!'
+            echo 'Pipeline executed successfully.'
         }
         failure {
-            echo 'Pipeline execution failed!'
+            echo 'Pipeline execution failed.'
         }
     }
 }
