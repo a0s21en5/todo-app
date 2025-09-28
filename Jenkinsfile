@@ -9,11 +9,7 @@ pipeline {
                 checkoutCode(
                     repoUrl: 'https://github.com/a0s21en5/todo-app',
                     branch: 'main',
-                    credentialsId: '', // For private repos
-                    shallow: true, // Faster clone
-                    submodules: false,
-                    timeout: 15,
-                    showCommitInfo: true
+                    credentialsId: '' // For private repos
                 )
             }
         }
@@ -25,8 +21,7 @@ pipeline {
                     imageTag: 'v1.0.0',
                     dockerfilePath: './Dockerfile',
                     buildArgs: '--no-cache --pull',
-                    buildContext: '.',
-                    showUser: true
+                    buildContext: '.'
                 )
             }
         }
@@ -38,9 +33,7 @@ pipeline {
                     imageTag: 'v1.0.0',
                     repository: 'todo-app',
                     targetTag: 'latest',
-                    dockerCredentialsId: 'dockerHubCredential',
-                    registryUrl: '', // Empty for DockerHub, or specify custom registry
-                    autoLogout: true
+                    dockerCredentialsId: 'dockerHubCredential'
                 )
             }
         }
@@ -50,16 +43,11 @@ pipeline {
                 deployApp(
                     composeFile: 'docker-compose.yml',
                     serviceName: 'todo-app', // Deploy specific service - matches docker-compose.yml
-                    detached: true,
-                    build: false,
-                    pullImages: true,
-                    removeOrphans: true,
                     projectName: 'todo-app-prod',
                     environment: [
                         'ENV': 'production',
                         'PORT': '8080'
-                    ],
-                    showStatus: true
+                    ]
                 )
             }
         }
