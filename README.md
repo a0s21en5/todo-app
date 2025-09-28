@@ -1,4 +1,4 @@
-# Todo App
+# Todo Application
 
 A modern, feature-rich todo application built with Angular 20 and containerized with Docker. This application provides a clean and intuitive interface for managing your daily tasks with features like adding, editing, deleting, and filtering todos.
 
